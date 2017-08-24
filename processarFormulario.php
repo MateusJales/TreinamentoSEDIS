@@ -1,57 +1,68 @@
 <?php
-	echo "<h1>Cupom Salarial</h1>";
-	echo "<br>";
-	echo "<br>";
-	if(strlen($_POST[_cpf]) < 11) {
-		echo "CPF curto desfsfdsfgdsfgs!<br>";
+/*
+Sistema..........: SisPag
+Nome do programa.: processarFormulario.php
+Objetivo.........: Processar e validar dados informados pelo formulário de dados salariais do arquivo html
+Autor............: Mateus de Medeiros Jales
+Data.............: 24/08/2017
+*/
+
+// Bibliotecas do sistema
+
+	require_once("./library.php");
+
+// Parâmetros de entrada
+
+	$_cpf = $_POST['cpf'];
+	$_funcionario = $_POST['funcionario'];
+	$_nascimento = $_POST['nascimento'];
+	$_salBase = $_POST['salBase'];
+	$_numFilhos = $_POST['numFilhos'];
+
+// Variáveis de configuração
+
+	$_url = "http://10.4.5.13/folha/form.html";
+
+// Validação
+	// Validação de CPF
+
+	if ( KX_isCPF($_cpf) ) {
+		KX_redirectPage($_url);
 		exit;
 	}
-	if(! ctype_digit($_POST[_cpf])) {
-		echo "CPF não aceita letras, apenas números!<br>";
-		exit;
-	}		
-	if(strlen($_POST[_funcionario]) < 1) {
+
+	// Validação de nome do funcionário
+
+	if(strlen($_funcionario) < 1) {
 		echo "Nome do funcionário inválido!<br>";
 		exit;
 	}
-	if((float) $_POST[_salBase] < 0) {
-		echo "Salário Base inválido!";
+
+	// Validação de salário base
+
+	if ( KX_isNegative($_salBase) )
+	  {
+		KX_redirectPage($_url);
 		exit;
-	}
-	$salFamilia = 30 * $_POST[_numFilhos];
-	$abono = 0;
-	if((2017 - $_POST[_nascimento]) > 40) {
+	  }
+
+	// Validação de número de filhos
+
+	if ( KX_isNegative($_numFilhos) )
+	  {
+		KX_redirectPage($_url);
+		exit;
+	  }
+		
+//Processamento de novas variáveis a serem exportadas
+
+	$_salFamilia = 30 * $__numFilhos;
+	$_abono = 0;
+	$_idade = 2017 - $_nascimento;
+	if($_idade > 40) {
 		$abono = 800;
 	}
-	$salBruto = $abono + $salFamilia + $_POST[_salBase];
-	$inss = 0.08 * $_POST[_salBase];
-	$salLiquido = $salBruto - $inss;
-	echo "CPF: ".$_POST[_cpf];
-	echo "<br>";
-	echo "<br>";
-	echo "Funcionário: ".$_POST[_funcionario];
-	echo "<br>";
-	echo "<br>";
-	echo "Ano de Nascimento: ".$_POST[_nascimento];
-	echo "<br>";
-	echo "<br>";
-	echo "Salário Base: ".$_POST[_salBase];
-	echo "<br>";
-	echo "<br>";
-	echo "Salaŕio Família: ".$salFamilia;
-	echo "<br>";
-	echo "<br>";
-	echo "Abono: ".$abono;
-	echo "<br>";
-	echo "<br>";
-	echo "Salário Bruto: ".$salBruto;
-	echo "<br>";
-	echo "<br>";
-	echo "INSS: ".$inss;
-	echo "<br>";
-	echo "<br>";
-	echo "Salário Líquido: ".$salLiquido;
-	
-	
-	
+	$_salBruto = $_abono + $_salFamilia + $_salBase;
+	$_inss = 0.08 * $_salBase;
+	$_salLiquido = $_salBruto - $inss;
 ?>
