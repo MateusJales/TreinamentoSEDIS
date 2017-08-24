@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Formulário</title>
+	</head>
+	<body>
+		<h1>Cálculo Salarial</h1>
+		<form action="processarFormulario.php" method="POST">
+			CPF: 
+			<input name="_cpf" type="text" maxlength="11">
+			<br>
+			<br>
+			Funcionário: 
+			<input name="_funcionario" type="text">
+			<br>
+			<br>
+			Ano de Nascimento: 
+			<input name="_nascimento" type="number" max="1999" min="1900">
+			<br>
+			<br>
+			Salário Base: 
+			<input name="_salBase" type="text">
+			<br>
+			<br>
+			Quantidade de Filhos: 
+			<input name="_numFilhos" type="number" min="0">
+			<br>
+			<br>
+			<input value="Calcular" type="submit">
+		</form>
+	</body>
+</html>	
