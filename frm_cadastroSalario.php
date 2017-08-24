@@ -4,11 +4,17 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Formulário</title>
 	</head>
+	<?php
+		$_cpfValue = "";
+		if ( isset($_GET['cpf']) ) {
+			$_cpfValue = $_GET['cpf'];
+		}
+	?>
 	<body>
 		<h1>Cálculo Salarial</h1>
-		<form action="processarFormulario.php" method="POST">
+		<form action="controller_cadastroSalario.php" method="POST">
 			CPF: 
-			<input name="cpf" type="text" maxlength="11">
+			<input name="cpf" type="text" value="<?php echo $_cpfValue ?>" maxlength="11">
 			<br>
 			<br>
 			Funcionário: 

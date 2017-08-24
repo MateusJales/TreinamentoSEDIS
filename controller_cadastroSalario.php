@@ -21,47 +21,57 @@ Data.............: 24/08/2017
 
 // Variáveis de configuração
 
-	$_url = "http://10.4.5.13/folha/form.html";
+	$_urlErro = "http://10.4.5.13/folha/erro_controller_cadastroSalario.php?";
+	$_valido = true;
 
 // Validação
 	// Validação de CPF
 
-	if ( KX_isCPF($_cpf) ) {
-		KX_redirectPage($_url);
-		exit;
-	}
+	if ( !KX_isCPF($_cpf) )
+	  {
+		$_urlErro = $_urlErro."cpf=".$_cpf."&";
+		$_valido = false;
+	  }
 
 	// Validação de nome do funcionário
 
-	if(strlen($_funcionario) < 1) {
-		echo "Nome do funcionário inválido!<br>";
-		exit;
-	}
+	if ( KX_isEmpty($_funcionario) )
+	  {
+		$_urlErro = $_urlErro."funcionario=erro&";
+		$_valido = false;
+	  }
 
 	// Validação de salário base
 
 	if ( KX_isNegative($_salBase) )
 	  {
-		KX_redirectPage($_url);
-		exit;
+		$_urlErro = $_urlErro."salBase=".$_salBase."&";
+		$_valido = false;
 	  }
 
 	// Validação de número de filhos
 
 	if ( KX_isNegative($_numFilhos) )
 	  {
-		KX_redirectPage($_url);
-		exit;
+		$_urlErro = $_urlErro."numFilhos=".$_numFilhos."&";
+		$_valido = false;
 	  }
-		
-//Processamento de novas variáveis a serem exportadas
+	
+// Encaminhamento de acordo com a validação
 
-	$_salFamilia = 30 * $__numFilhos;
+	if (! $_valido) {
+		KX_redirectPage($_urlErro);
+	}
+
+// Processamento de novas variáveis a serem exportadas
+
+	$_salFamilia = 30 * $_numFilhos;
 	$_abono = 0;
 	$_idade = 2017 - $_nascimento;
-	if($_idade > 40) {
+	if($_idade > 40)
+	  {
 		$abono = 800;
-	}
+	  }
 	$_salBruto = $_abono + $_salFamilia + $_salBase;
 	$_inss = 0.08 * $_salBase;
 	$_salLiquido = $_salBruto - $inss;
