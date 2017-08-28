@@ -1,14 +1,14 @@
 <?php
 /*
-Sistema..........: Biblioteca de funções genéricas
+Sistema..........: SisPag
 Nome do programa.: library.php
-Objetivo.........: Coleção de funções para uso geral
+Objetivo.........: Disponibiliza funções para uso do sistema
 Autor............: Mateus de Medeiros Jales
 Data.............: 24/08/2017
 Versão 1.0
 */
 
-	// Passagem de dados sem formulário
+// Passa de dados sem formulário
 
 	function KX_sendData ($p_dados, $p_url) {
 
@@ -22,34 +22,7 @@ Versão 1.0
 
 	}
 
-	//Resposta as entradas inválidas
-
-	function KX_mensagemErro ($p_entrada) {
-
-		if ($entrada != "" && $entrada != 'erro')
-		  {
-			echo " inválido!";
-			echo "<br>";
-		  }
-		if ($p_G['funcionario'] == "erro")
-		  {
-			echo "Funcionário inválido!";
-			echo "<br>";
-		  }
-		if ($p_G['salBase'] != "")
-		  {
-			echo "Salário base inválido!";
-			echo "<br>";
-		  }
-		if ($p_G['numFilhos'] != "")
-		  {
-			echo "Número de filhos inválido!";
-			echo "<br>";
-		  }
-
-	}
-
-	//Checar se número é negativo
+//Checa se número é negativo
 
 	function KX_isNegative ($p_num) {
 
@@ -64,7 +37,7 @@ Versão 1.0
 
 	}
 
-	// Checar se o nome não é vazio
+// Checa se o nome não é vazio
 
 	function KX_isEmpty ($p_name) {
 
@@ -78,17 +51,19 @@ Versão 1.0
 	}
 
 
-	// Checar CPF
+// Checa CPF
 
 	function KX_isCPF ($p_cpf) {
 
-		// Verifica tamanho do CPF
+	// Verifica tamanho do CPF
+
 		if ( strlen($p_cpf ) < 11)
 		  {
 			return false;
 		  }
 
-		// Verifica se CPF apenas numérico
+	// Verifica se CPF apenas numérico
+
 		if ( ! ctype_digit($p_cpf) )
 		  {
 			return false;
@@ -98,7 +73,7 @@ Versão 1.0
 
 	}
 
-	// Cálculo dos valores finais
+// Cálcula valores finais
 
 	function KX_calculaSalFamilia ($p_numFilhos) {
 
@@ -143,7 +118,7 @@ Versão 1.0
 	}
 
 
-	// Redireciona página
+// Redireciona página
 
 	function KX_redirectPage ($p_url) {
 

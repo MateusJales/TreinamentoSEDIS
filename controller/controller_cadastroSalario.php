@@ -1,19 +1,22 @@
 <?php
 /*
-Sistema..........: Sispag
+Sistema..........: SisPag
 Nome do programa.: controller_cadastroSalario.php
 Objetivo.........: Processar e validar dados informados pelo formulário de dados salariais do arquivo de formulário
 Autor............: Mateus de Medeiros Jales
 Data.............: 24/08/2017
+Versão 1.0
 */
 
 // Requerimentos
 
 	// Biblioteca do sistema
 	require_once("../library/library.php");
+
+	// Variáveis globais do sistema
 	require_once("../config/config.php");
 
-// Parâmetros de entrada
+// Definição dos parâmetros de entrada
 
 	$_cpf = $_POST['_cpf'];
 	$_funcionario = $_POST['_funcionario'];
@@ -68,7 +71,7 @@ Data.............: 24/08/2017
 
 	if (! $_valido)
 	  {
-		KX_sendData($_dados, 'http://10.4.5.13/cadastroSalario/view/frm_cadastroSalario.php');
+		KX_sendData($_dados, 'http://'.IP_MAQUINA.'/SisPag/view/frm_cadastroSalario.php');
 	  }
 
 // Processa novas variáveis a serem exportadas
@@ -93,6 +96,6 @@ Data.............: 24/08/2017
 			'_salBruto' => $_salBruto,
 			'_inss' => $_inss,
 			'_salLiquido' => $_salLiquido);
-	KX_sendData($_dados, 'http://10.4.5.13/cadastroSalario/view/view.php');
+	KX_sendData($_dados, 'http://'.IP_MAQUINA.'/SisPag/view/view.php');
 	  }
 ?>
