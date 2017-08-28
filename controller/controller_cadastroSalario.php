@@ -1,15 +1,17 @@
 <?php
 /*
-Sistema..........: SisPag
+Sistema..........: Sispag
 Nome do programa.: controller_cadastroSalario.php
-Objetivo.........: Processar e validar dados informados pelo formulário de dados salariais do arquivo html
+Objetivo.........: Processar e validar dados informados pelo formulário de dados salariais do arquivo de formulário
 Autor............: Mateus de Medeiros Jales
 Data.............: 24/08/2017
 */
 
-// Bibliotecas do sistema
+// Requerimentos
 
+	// Biblioteca do sistema
 	require_once("../library/library.php");
+	require_once("../config/config.php");
 
 // Parâmetros de entrada
 
@@ -28,9 +30,9 @@ Data.............: 24/08/2017
 			'_salBase' => '',
 			'_numFilhos' => '');
 
-// Validação
+// Validação de dados
 
-	// Validação de CPF
+	// Valida CPF
 
 	if ( ! KX_isCPF($_cpf) )
 	  {
@@ -38,7 +40,7 @@ Data.............: 24/08/2017
 		$_valido = false;
 	  }
 
-	// Validação de nome do funcionário
+	// Valida nome do funcionário
 
 	if ( KX_isEmpty($_funcionario) )
 	  {
@@ -46,7 +48,7 @@ Data.............: 24/08/2017
 		$_valido = false;
 	  }
 
-	// Validação de salário base
+	// Valida salário base
 
 	if ( KX_isNegative($_salBase) )
 	  {
@@ -54,7 +56,7 @@ Data.............: 24/08/2017
 		$_valido = false;
 	  }
 
-	// Validação de número de filhos
+	// Valida número de filhos
 
 	if ( KX_isNegative($_numFilhos) )
 	  {
@@ -62,14 +64,14 @@ Data.............: 24/08/2017
 		$_valido = false;
 	  }
 	
-// Encaminhamento caso dados inválidos
+// Encaminha em caso de dados inválidos
 
 	if (! $_valido)
 	  {
 		KX_sendData($_dados, 'http://10.4.5.13/cadastroSalario/view/frm_cadastroSalario.php');
 	  }
 
-// Processamento de novas variáveis a serem exportadas
+// Processa novas variáveis a serem exportadas
 	else
 	  {
 		$_salFamilia = KX_calculaSalFamilia($_numFilhos);
@@ -79,7 +81,7 @@ Data.............: 24/08/2017
 		$_inss = KX_calculaInss($_salBase);
 		$_salLiquido = KX_calculaSalLiquido($_salBruto, $_inss);
 
-// Envio de dados para mensagem final
+// Envia de dados para mensagem final
 
 	$_dados = array( '_cpf' => $_cpf,
 			'_funcionario' => $_funcionario,
