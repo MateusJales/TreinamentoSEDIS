@@ -24,6 +24,7 @@ Data.............: 24/08/2017
 	$_valido = true;
 	$_dados = array( '_cpf' => '',
 			'_funcionario' => '',
+			'_nascimento' => $_nascimento,
 			'_salBase' => '',
 			'_numFilhos' => '');
 
