@@ -15,7 +15,9 @@ Versão 1.0
 
 	// Variáveis globais do sistema
 	require_once('../config/config.php');
+	require_once('../congig/sessaoAtiva.php');
 
+	KX_verificaSessao($_estaAtivo);
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +48,7 @@ Versão 1.0
 
 	<body>
 
-		<h1>Cálculo Salarial</h1>
+		<h1>SisPag</h1>
 
 		<!-- Leitura de dados fornecidos pelo usuário -->
 

@@ -8,6 +8,17 @@ Data.............: 24/08/2017
 Versão 1.0
 */
 
+	require_once('../config/config.php');
+
+// Verifica se sessão está ativa
+
+	function KX_verificaSessao ($p_estaAtivo) {
+		if ( ! $p_estaAtivo )
+		  
+			KX_redirectPage("http://".IP_MAQUINA."/SisPag/view/login_sisPag.php");
+		  }
+	}
+
 // Passa de dados sem formulário
 
 	function KX_sendData ($p_dados, $p_url) {
