@@ -15,9 +15,13 @@ Versão 1.0
 
 	// Variáveis globais do sistema
 	require_once('../config/config.php');
-	require_once('../congig/sessaoAtiva.php');
 
-	KX_verificaSessao($_estaAtivo);
+	// Verificação de login
+	require_once('../session/session.php');
+
+	// Cabeçalho
+	include('./header.php')
+
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +44,8 @@ Versão 1.0
 				'_nascimento' => '',
 				'_salBase' => '',
 				'_numFilhos' => '');
-		if ( ! empty($_POST) )
+
+		if ( ! empty($_POST ) )
 		  {
 			$_dados = $_POST;
 		  }
@@ -54,7 +59,7 @@ Versão 1.0
 
 		<form action="../controller/controller_cadastroSalario.php" method="POST">
 
-			CPF: 
+			CPF:
 			<input name="_cpf" type="text" maxlength="11" value="<?php echo $_dados['_cpf']; ?>" required >
 			<?php
 
@@ -69,23 +74,23 @@ Versão 1.0
 			<br>
 			<br>
 
-			Funcionário: 
+			Funcionário:
 			<input name="_funcionario" type="text" value="<?php echo $_dados['_funcionario']; ?>" required>
 			<br>
 			<br>
 
-			Ano de Nascimento: 
+			Ano de Nascimento:
 			<input name="_nascimento" type="number" max="1999" min="1900" value="<?php echo $_dados['_nascimento']; ?>" required>
 			<br>
 			<br>
 
-			Salário Base: 
+			Salário Base:
 			<input name="_salBase" type="text" value="<?php echo $_dados['_salBase']; ?>" required>
 			<?php
 
 				// Exibição de alerta para caso de entrada inválida
 
-				if ( KX_isNegative($_dados['_salBase']) )
+				if ( KX_isSalBase($_dados['_salBase']) )
 				  {
 					echo "Salário Base inválido!";
 				  }
@@ -94,16 +99,9 @@ Versão 1.0
 			<br>
 			<br>
 
-			Quantidade de Filhos: 
+			Quantidade de Filhos:
 			<input name="_numFilhos" type="number" min="0" value="<?php echo $_dados['_numFilhos']; ?>" required>
 			<?php
-
-				// Exibição de alerta para caso de entrada inválida
-
-				if ( KX_isNegative($_dados['_numFilhos']) )
-				  {
-					echo "Número de filhos inválido!";
-				  }
 
 			?>
 			<br>
@@ -115,4 +113,4 @@ Versão 1.0
 
 	</body>
 
-</html>	
+</html>

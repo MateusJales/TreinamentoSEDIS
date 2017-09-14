@@ -1,7 +1,20 @@
 <?php
+/*
+Sistema..........: SisPag
+Nome do programa.:
+Objetivo.........:
+Autor............: Mateus de Medeiros Jales
+Data.............: 24/08/2017
+Versão 1.0
+*/
 
-	require_once('../config/sessaoAtiva.php');
-	$_estaAtiva = false;
+// Requerimentos
+
+	// Biblioteca do sistema
+	require_once("../library/library.php");
+
+	// Variáveis globais do sistema
+	require_once("../config/config.php");
 
 ?>
 
@@ -23,16 +36,16 @@
 
 		<form action="../controller/controller_login.php" method="POST">
 
-			Usuário: 
-			<input name="_usuario" type="text" required >
+			Usuário:
+			<input name="_user" type="text" required >
 			<br>
 			<br>
 			Senha:
-			<input name="_senha" type="password" required >
+			<input name="_password" type="password" required >
 			<br>
 			<br>
 			<input value="Entrar" type="submit">
-		</form>	
+		</form>
 	</body>
 
 </html>

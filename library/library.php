@@ -10,13 +10,23 @@ Versão 1.0
 
 	require_once('../config/config.php');
 
+// Verifica se o login é correto
+
+	function KX_login($p_user, $p_password) {
+		if ($p_user == 'Kruix17' && $p_password == 'asdf') {
+			session_name("sisPag");
+		  session_start();
+			$_SESSION["_user"] = $p_user;
+		}
+	}
+
+
 // Verifica se sessão está ativa
 
 	function KX_verificaSessao ($p_estaAtivo) {
-		if ( ! $p_estaAtivo )
-		  
+		if ( ! $p_estaAtivo ) {
 			KX_redirectPage("http://".IP_MAQUINA."/SisPag/view/login_sisPag.php");
-		  }
+		}
 	}
 
 // Passa de dados sem formulário
@@ -33,9 +43,9 @@ Versão 1.0
 
 	}
 
-//Checa se número é negativo
+//Checa se valor de Salário Base é válido
 
-	function KX_isNegative ($p_num) {
+	function KX_isSalBase ($p_num) {
 
 		if ( $p_num < 0 )
 		  {
@@ -56,7 +66,7 @@ Versão 1.0
 		  {
 			return true;
 		  }
-		
+
 		return false;
 
 	}
@@ -93,7 +103,7 @@ Versão 1.0
 	}
 
 	function KX_calculaIdade ($p_nascimento) {
-		
+
 		return 2017 - $p_nascimento;
 
 	}

@@ -16,6 +16,10 @@ Versão 1.0
 	// Variáveis globais do sistema
 	require_once("../config/config.php");
 
+	// Verificação de login
+	require_once('../session/session.php');
+
+
 // Definição dos parâmetros de entrada
 
 	$_cpf = $_POST['_cpf'];
@@ -43,30 +47,14 @@ Versão 1.0
 		$_valido = false;
 	  }
 
-	// Valida nome do funcionário
-
-	if ( KX_isEmpty($_funcionario) )
-	  {
-		$_dados = $_POST;
-		$_valido = false;
-	  }
-
 	// Valida salário base
 
-	if ( KX_isNegative($_salBase) )
+	if ( KX_isSalBase($_salBase) )
 	  {
 		$_dados = $_POST;
 		$_valido = false;
 	  }
 
-	// Valida número de filhos
-
-	if ( KX_isNegative($_numFilhos) )
-	  {
-		$_dados = $_POST;
-		$_valido = false;
-	  }
-	
 // Encaminha em caso de dados inválidos
 
 	if (! $_valido)
@@ -75,6 +63,7 @@ Versão 1.0
 	  }
 
 // Processa novas variáveis a serem exportadas
+
 	else
 	  {
 		$_salFamilia = KX_calculaSalFamilia($_numFilhos);
@@ -86,7 +75,7 @@ Versão 1.0
 
 // Envia de dados para mensagem final
 
-	$_dados = array( '_cpf' => $_cpf,
+	$_SESSION['dados'] = array( '_cpf' => $_cpf,
 			'_funcionario' => $_funcionario,
 			'_nascimento' => $_nascimento,
 			'_idade' => $_idade,
@@ -96,6 +85,4 @@ Versão 1.0
 			'_salBruto' => $_salBruto,
 			'_inss' => $_inss,
 			'_salLiquido' => $_salLiquido);
-	KX_sendData($_dados, 'http://'.IP_MAQUINA.'/SisPag/view/view.php');
-	  }
 ?>
