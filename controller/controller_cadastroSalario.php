@@ -72,6 +72,7 @@ Versão 1.0
 		$_salBruto = KX_calculaSalBruto($_abono, $_salFamilia, $_salBase);
 		$_inss = KX_calculaInss($_salBase);
 		$_salLiquido = KX_calculaSalLiquido($_salBruto, $_inss);
+	  }
 
 // Envia de dados para mensagem final
 
@@ -85,4 +86,6 @@ Versão 1.0
 			'_salBruto' => $_salBruto,
 			'_inss' => $_inss,
 			'_salLiquido' => $_salLiquido);
+
+	KX_redirectPage('http://'.IP_MAQUINA.'/SisPag/view/view.php');
 ?>

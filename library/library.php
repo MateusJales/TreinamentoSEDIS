@@ -8,27 +8,52 @@ Data.............: 24/08/2017
 Versão 1.0
 */
 
-	require_once('../config/config.php');
+	require_once("../config/config.php");
 
 // Verifica se o login é correto
+	function KX_ativaDadosLogin() {
+		$localizacao = '/home/mateusjales/dados/data_sisPag.txt';
+		$handle = fopen($localizacao, 'r');
+		$id = 0;
+		$dados = array(array());
+		while(!feof($handle)) {
+			$linhaDado = fgets($handle);
+			if ( ! empty($linhaDado) ) {
+				$cadaDado = explode(";", $linhaDado);
+				$dados[$id]['user'] = $cadaDado[0];
+				$dados[$id]['password'] = $cadaDado[1];
+				$id ++;
+			}
+		}
+		fclose($handle);
+		return($dados);
+	}
 
 	function KX_login($p_user, $p_password) {
-		if ($p_user == 'Kruix17' && $p_password == 'asdf') {
+		$dadosLogin = KX_ativaDadosLogin();
+		$loginValido = false;
+		for ( $i = 0; $i < count($dadosLogin); $i++ ) {
+			if ( $dadosLogin[$i]['user'] === $p_user && $dadosLogin[$i]['password'] === $p_password ) {
+				$loginValido = true;
+			}
+		}
+		if ( $loginValido ) {
 			session_name("sisPag");
 		  session_start();
-			$_SESSION["_user"] = $p_user;
+			$_SESSION['_user'] = $p_user;
+		}	else {
+			KX_redirectPage('http://'.IP_MAQUINA.'/SisPag/view/login_sisPag.php');
 		}
 	}
 
-
 // Verifica se sessão está ativa
-
+/*
 	function KX_verificaSessao ($p_estaAtivo) {
 		if ( ! $p_estaAtivo ) {
 			KX_redirectPage("http://".IP_MAQUINA."/SisPag/view/login_sisPag.php");
 		}
 	}
-
+*/
 // Passa de dados sem formulário
 
 	function KX_sendData ($p_dados, $p_url) {

@@ -20,7 +20,7 @@ Versão 1.0
 	require_once('../session/session.php');
 
 	// Cabeçalho
-	include('./header.php')
+	include('./header.php');
 
 
 // Definição de parâmetros de entrada
@@ -32,31 +32,31 @@ Versão 1.0
 	echo "CPF: ".$_dados['_cpf'];
 	echo "<br>";
 	echo "<br>";
-	echo "Funcionário: ".$_dados['funcionario'];
+	echo "Funcionário: ".$_dados['_funcionario'];
 	echo "<br>";
 	echo "<br>";
-	echo "Ano de nascimento: ".$_dados['nascimento'];
+	echo "Ano de nascimento: ".$_dados['_nascimento'];
 	echo "<br>";
 	echo "<br>";
-	echo "Idade: ".$_dados['idade'];
+	echo "Idade: ".$_dados['_idade'];
 	echo "<br>";
 	echo "<br>";
-	echo "Salário Base: ".$_dados['salBase'];
+	echo "Salário Base: ".$_dados['_salBase'];
 	echo "<br>";
 	echo "<br>";
-	echo "Salário Família: ".$_dados['salFamilia'];
+	echo "Salário Família: ".$_dados['_salFamilia'];
 	echo "<br>";
 	echo "<br>";
-	echo "Abono: ".$_dados['abono'];
+	echo "Abono: ".$_dados['_abono'];
 	echo "<br>";
 	echo "<br>";
-	echo "Salário Bruto: ".$_dados['salBruto'];
+	echo "Salário Bruto: ".$_dados['_salBruto'];
 	echo "<br>";
 	echo "<br>";
-	echo "INSS: ".$_dados['inss'];
+	echo "INSS: ".$_dados['_inss'];
 	echo "<br>";
 	echo "<br>";
-	echo "Salário Líquido: ".$_dados['salLiquido'];
+	echo "Salário Líquido: ".$_dados['_salLiquido'];
 	echo "<br>";
 	echo "<br>";
 

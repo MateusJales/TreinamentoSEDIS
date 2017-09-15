@@ -1,9 +1,10 @@
-<html>
-	<body>
-		<?php
-			$a = array('js' => 'banana', 'kjk' => 45);
-			$b = $a;
-			if ( empty($_GET) ) {print_r($b);}
-		?>
-	</body>
-</html>
+<?php
+require_once('./library/library.php');
+//require_once('./config/config.php');
+
+
+$dados = KX_ativaDadosLogin();
+
+var_dump ($dados);
+
+?>
