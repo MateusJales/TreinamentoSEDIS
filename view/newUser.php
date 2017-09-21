@@ -26,15 +26,15 @@ Versão 1.0
 		<!-- Definição de metadados para exibição de caracteres especiais -->
 
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title> Login SisPag </title>
+		<title> Novo Usuário SisPag </title>
 
 	</head>
 
 	<body>
 
-		<h1> SisPag </h1>
+		<h1> Novo Usuário </h1>
 
-		<form action="../controller/controller_login.php" method="POST">
+		<form action="../controller/controller_newUser.php" method="POST">
 
 			Usuário:
 			<input name="_user" type="text" required >
@@ -44,13 +44,14 @@ Versão 1.0
 			<input name="_password" type="password" required >
 			<br>
 			<br>
-			<input value="Entrar" type="submit">
+      Confirmar Senha:
+			<input name="_passwordConfirm" type="password" required >
+			<br>
+			<br>
+			<input value="Criar Usuário" type="submit">
+
 		</form>
 
-		<form action='./newUser.php'>
-			<input value="Novo usuário" type="submit">
-		</form>
-		
 	</body>
 
 </html>

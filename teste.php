@@ -1,10 +1,18 @@
 <?php
-require_once('./library/library.php');
-//require_once('./config/config.php');
-
-
-$dados = KX_ativaDadosLogin();
-
-var_dump ($dados);
-
+$localizacao = '/home/mateusjales/dados/data_sisPag.txt';
+$handle = fopen($localizacao, 'r');
+$id = 0;
+$dados = array(array());
+while(!feof($handle)) {
+  $linhaDado = fgets($handle);
+  if ( ! empty($linhaDado) ) {
+    $cadaDado = explode(";", $linhaDado);
+    $dados[$id]['user'] = $cadaDado[0];
+    $dados[$id]['password'] = trim($cadaDado[1]);
+    $dados[$id]['isAdmin'] = trim($cadaDado[2]);
+    $id ++;
+  }
+}
+fclose($handle);
+var_dump($dados);
 ?>

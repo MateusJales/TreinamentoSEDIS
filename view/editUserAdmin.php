@@ -16,6 +16,11 @@ Versão 1.0
 	// Variáveis globais do sistema
 	require_once("../config/config.php");
 
+  // Variáveis do POST
+
+  $_usersData = KX_ativaDadosLogin();
+  $_userId = $_POST['_userId'];
+
 ?>
 
 
@@ -26,31 +31,33 @@ Versão 1.0
 		<!-- Definição de metadados para exibição de caracteres especiais -->
 
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title> Login SisPag </title>
+		<title> Editar Usuário </title>
 
 	</head>
 
 	<body>
 
-		<h1> SisPag </h1>
+		<h1> Editar Usuário </h1>
 
-		<form action="../controller/controller_login.php" method="POST">
+		<form action="../controller/controller_editUser.php" method="POST">
 
-			Usuário:
+			Usuário: <?php echo $_usersData[$_userId]['user']; ?>
+      <br>
 			<input name="_user" type="text" required >
 			<br>
 			<br>
-			Senha:
+			Senha: <?php echo $_usersData[$_userId]['password']; ?>
+      <br>
 			<input name="_password" type="password" required >
 			<br>
 			<br>
-			<input value="Entrar" type="submit">
+      Administrador:
+			<input type="checkbox" name="_isAdmin" <?php if ( $_usersData[$_userId]['isAdmin'] == '1' ) {echo 'checked';} ?>>
+			<br>
+			<br>
+			<input value="Editar" type="submit">
 		</form>
 
-		<form action='./newUser.php'>
-			<input value="Novo usuário" type="submit">
-		</form>
-		
 	</body>
 
 </html>

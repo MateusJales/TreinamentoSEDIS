@@ -20,7 +20,7 @@ Versão 1.0
 	require_once('../session/session.php');
 
 	// Cabeçalho
-	include('./header.php')
+	include('../templates/header.php');
 
 ?>
 

@@ -8,9 +8,81 @@ Data.............: 24/08/2017
 Versão 1.0
 */
 
-	require_once("../config/config.php");
+//	require_once("../config/config.php");
+/*Kruix17;asdf
+Leozinho;hentai123
+*/
+
+
+
+// Verifica se nova senha é válida
+
+	function KX_validateNewPassword($p_user, $p_password, $p_newPassword, $p_newPasswordConfirm) {
+		$usersData = KX_ativaDadosLogin();
+		for ( $i = 0; $i < count($usersData); $i++ ) {
+			if ( $otherUsers[$i]['user'] == $p_user ) {
+				if ( $otherUsers[$i]['password'] != $p_password ) {
+					return false;
+				}
+			}
+		}
+		if ( (strpos($p_newPassword, ';' ) !== false) || (strpos($p_newPassword, ' ' ) !== false) ) {
+			return false;
+		}
+		if ( $p_newPassword != $p_newPasswordConfirm ) {
+			return false;
+		}
+		return true;
+	}
+
+// Troca senha de usuário
+
+	function KX_changePassword ($p_user, $p_newPassword) {
+		$usersData = KX_ativaDadosLogin();
+		for ( $i = 0; $i < count($usersData); $i++ ) {
+			if ( $usersData[$i]['user'] == $p_user ) {
+				$usersData[$i]['password'] = $p_newPassword;
+			}
+		}
+		$localizacao = '/home/mateusjales/dados/data_sisPag.txt';
+		$handle = fopen($localizacao, 'w');
+		for ( $i = 0; $i < count($usersData); $i++ ) {
+			$txt = $usersData[$i]['user'].";".$usersData[$i]['password']."\n";
+			fwrite($handle, $txt);
+		}
+		fclose($handle);
+	}
+
+// Verifica se novo usuário é válido
+
+	function KX_validateNewUser($p_user, $p_password, $p_passwordConfirm) {
+		$otherUsers = KX_ativaDadosLogin();
+		if ( (strpos($p_user, ';' ) !== false) || (strpos($p_user, ' ' ) !== false) || (strpos($p_password, ';' ) !== false) || (strpos($p_password, ' ' ) !== false) ) {
+			return false;
+		}
+		for ( $i = 0; $i < count($otherUsers); $i++ ) {
+			if ( $otherUsers[$i]['user'] == $p_user ) {
+				return false;
+			}
+		}
+		if ( $p_password != $p_passwordConfirm ) {
+			return false;
+		}
+		return true;
+	}
+
+// Insere novo usuário no banco de dados
+
+	function KX_newUser($p_user, $p_password) {
+		$localizacao = '/home/mateusjales/dados/data_sisPag.txt';
+		$handle = fopen($localizacao, 'a');
+		$txt = $p_user.";".$p_password.";0\n";
+		fwrite($handle, $txt);
+		fclose($handle);
+	}
 
 // Verifica se o login é correto
+
 	function KX_ativaDadosLogin() {
 		$localizacao = '/home/mateusjales/dados/data_sisPag.txt';
 		$handle = fopen($localizacao, 'r');
@@ -21,7 +93,8 @@ Versão 1.0
 			if ( ! empty($linhaDado) ) {
 				$cadaDado = explode(";", $linhaDado);
 				$dados[$id]['user'] = $cadaDado[0];
-				$dados[$id]['password'] = $cadaDado[1];
+				$dados[$id]['password'] = trim($cadaDado[1]);
+				$dados[$id]['isAdmin'] = trim($cadaDado[2]);
 				$id ++;
 			}
 		}
@@ -31,19 +104,16 @@ Versão 1.0
 
 	function KX_login($p_user, $p_password) {
 		$dadosLogin = KX_ativaDadosLogin();
-		$loginValido = false;
 		for ( $i = 0; $i < count($dadosLogin); $i++ ) {
-			if ( $dadosLogin[$i]['user'] === $p_user && $dadosLogin[$i]['password'] === $p_password ) {
-				$loginValido = true;
+			if ( $dadosLogin[$i]['user'] == $p_user && $dadosLogin[$i]['password'] == $p_password ) {
+				session_name("sisPag");
+			  session_start();
+				$_SESSION['_user'] = $p_user;
+				$_SESSION['_isAdmin'] = $dadosLogin[$i]['isAdmin'];
+				break;
 			}
 		}
-		if ( $loginValido ) {
-			session_name("sisPag");
-		  session_start();
-			$_SESSION['_user'] = $p_user;
-		}	else {
-			KX_redirectPage('http://'.IP_MAQUINA.'/SisPag/view/login_sisPag.php');
-		}
+		KX_redirectPage('http://'.IP_MAQUINA.'/SisPag/view/login_sisPag.php');
 	}
 
 // Verifica se sessão está ativa
