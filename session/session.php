@@ -16,10 +16,13 @@ Versão 1.0
 	// Variáveis globais do sistema
 	require_once('../config/config.php');
 
-  session_name("sisPag");
+	// Classe de Usuário
+	require_once('../model/User.php');
+
+  //session_name("sisPag");
   session_start();
 
-  if ( ! isset($_SESSION["_user"])) {
+  if ( ! isset($_SESSION['_user']->user) ) {
     KX_redirectPage('http://'.IP_MAQUINA.'/SisPag/view/login_sisPag.php');
   }
 

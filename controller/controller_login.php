@@ -8,6 +8,10 @@
 	// Variáveis globais do sistema
 	require_once('../config/config.php');
 
+	// Classe de Login
+
+	require_once('../model/User.php');
+
 	// Variáveis do POST
 
 	$_dadosLogin = $_POST;

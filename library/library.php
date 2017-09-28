@@ -8,10 +8,34 @@ Data.............: 24/08/2017
 Versão 1.0
 */
 
-//	require_once("../config/config.php");
-/*Kruix17;asdf
-Leozinho;hentai123
-*/
+// Troca dados de usuário
+
+	function KX_changeUser($p_userToChange, $p_user, $p_password, $p_isAdmin) {
+		$usersData = KX_ativaDadosLogin();
+		for ( $i = 0; $i < count($usersData); $i++ ) {
+			if ( $usersData[$i]['user'] == $p_userToChange ) {
+				$usersData[$i]['user'] = $p_user;
+				$usersData[$i]['password'] = $p_password;
+				$usersData[$i]['isAdmin'] = $p_isAdmin;
+			}
+		}
+		$localizacao = '/home/mateusjales/dados/data_sisPag.txt';
+		$handle = fopen($localizacao, 'w');
+		for ( $i = 0; $i < count($usersData); $i++ ) {
+			$txt = $usersData[$i]['user'].";".$usersData[$i]['password'].";".$usersData[$i]['isAdmin']."\n";
+			fwrite($handle, $txt);
+		}
+		fclose($handle);
+	}
+
+// Valida dados para alteração de dados de usuário
+
+function KX_validateChangeUser($p_user, $p_password) {
+	if ( (strpos($p_password, ';' ) !== false) || (strpos($p_password, ' ' ) !== false) || (strpos($p_user, ';' ) !== false) || (strpos($p_user, ' ' ) !== false) ) {
+		return false;
+	}
+	return true;
+}
 
 
 
@@ -47,7 +71,7 @@ Leozinho;hentai123
 		$localizacao = '/home/mateusjales/dados/data_sisPag.txt';
 		$handle = fopen($localizacao, 'w');
 		for ( $i = 0; $i < count($usersData); $i++ ) {
-			$txt = $usersData[$i]['user'].";".$usersData[$i]['password']."\n";
+			$txt = $usersData[$i]['user'].";".$usersData[$i]['password'].";".$usersData[$i]['isAdmin']."\n";
 			fwrite($handle, $txt);
 		}
 		fclose($handle);
@@ -106,33 +130,23 @@ Leozinho;hentai123
 		$dadosLogin = KX_ativaDadosLogin();
 		for ( $i = 0; $i < count($dadosLogin); $i++ ) {
 			if ( $dadosLogin[$i]['user'] == $p_user && $dadosLogin[$i]['password'] == $p_password ) {
-				session_name("sisPag");
-			  session_start();
-				$_SESSION['_user'] = $p_user;
-				$_SESSION['_isAdmin'] = $dadosLogin[$i]['isAdmin'];
+				session_start();
+				$_SESSION['_user'] = new User ($p_user, $dadosLogin[$i]['isAdmin']);
 				break;
 			}
 		}
 		KX_redirectPage('http://'.IP_MAQUINA.'/SisPag/view/login_sisPag.php');
 	}
 
-// Verifica se sessão está ativa
-/*
-	function KX_verificaSessao ($p_estaAtivo) {
-		if ( ! $p_estaAtivo ) {
-			KX_redirectPage("http://".IP_MAQUINA."/SisPag/view/login_sisPag.php");
-		}
-	}
-*/
-// Passa de dados sem formulário
-
 	function KX_sendData ($p_dados, $p_url) {
+		session_write_close();
 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $p_url);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
-		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POST, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $p_dados);
+		curl_setopt($ch, CURLOPT_COOKIESESSION, true);
 		curl_exec($ch);
 		curl_close($ch);
 

@@ -16,10 +16,17 @@ Versão 1.0
 	// Variáveis globais do sistema
 	require_once("../config/config.php");
 
+  // Verificação de login
+  require('../session/session.php');
+
+  // Cabeçalho
+	include_once('../templates/header.php');
+
   // Variáveis do POST
 
   $_usersData = KX_ativaDadosLogin();
   $_userId = $_POST['_userId'];
+	var_dump($_SESSION);
 
 ?>
 
@@ -41,21 +48,29 @@ Versão 1.0
 
 		<form action="../controller/controller_editUser.php" method="POST">
 
-			Usuário: <?php echo $_usersData[$_userId]['user']; ?>
+			<input name="_userToChange" type="hidden" value="<?php echo $_usersData[$_userId]['user']; ?>" >
+			<input name="_userId" type="hidden" value="<?php echo $_userId; ?>" >
+
+			<h2> <?php echo $_usersData[$_userId]['user']; ?></h2>
+			Usuário:
       <br>
-			<input name="_user" type="text" required >
+			<input name="_user" type="text" value="<?php echo $_usersData[$_userId]['user']; ?>" required >
 			<br>
 			<br>
-			Senha: <?php echo $_usersData[$_userId]['password']; ?>
+
+			Senha:
       <br>
-			<input name="_password" type="password" required >
+			<input name="_password" type="text" value="<?php echo $_usersData[$_userId]['password']; ?>" required >
 			<br>
 			<br>
+
       Administrador:
 			<input type="checkbox" name="_isAdmin" <?php if ( $_usersData[$_userId]['isAdmin'] == '1' ) {echo 'checked';} ?>>
 			<br>
 			<br>
+
 			<input value="Editar" type="submit">
+
 		</form>
 
 	</body>

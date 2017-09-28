@@ -10,7 +10,7 @@
   <body>
 		Versão 1.0
 		<?php
-		if ( $_SESSION['_isAdmin'] == '1' ) {
+		if ( $_SESSION['_user']->isAdmin == '1' ) {
 			echo ' - Administrador';
 			echo '<form action="../view/manageUsersAdmin.php">';
 			echo '<input value="Gerenciar Usuários" type="submit">';
