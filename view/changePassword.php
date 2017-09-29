@@ -16,10 +16,10 @@ Versão 1.0
 	// Variáveis globais do sistema
 	require_once("../config/config.php");
 
-  // Verificação de login
-  require_once('../session/session.php');
+  	// Verificação de login
+ 	 require_once('../session/session.php');
 
-  // Cabeçalho
+ 	// Cabeçalho
 	include('../templates/header.php');
 
 ?>

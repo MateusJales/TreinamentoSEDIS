@@ -8,6 +8,10 @@ Data.............: 24/08/2017
 Versão 1.0
 */
 
+// Variáveis globais do sistema
+
+	require_once("../config/config.php");
+
 // Troca dados de usuário
 
 	function KX_changeUser($p_userToChange, $p_user, $p_password, $p_isAdmin) {
@@ -19,8 +23,7 @@ Versão 1.0
 				$usersData[$i]['isAdmin'] = $p_isAdmin;
 			}
 		}
-		$localizacao = '/home/mateusjales/dados/data_sisPag.txt';
-		$handle = fopen($localizacao, 'w');
+		$handle = fopen(USERS_DATA_PATH, 'w');
 		for ( $i = 0; $i < count($usersData); $i++ ) {
 			$txt = $usersData[$i]['user'].";".$usersData[$i]['password'].";".$usersData[$i]['isAdmin']."\n";
 			fwrite($handle, $txt);
@@ -68,8 +71,7 @@ function KX_validateChangeUser($p_user, $p_password) {
 				$usersData[$i]['password'] = $p_newPassword;
 			}
 		}
-		$localizacao = '/home/mateusjales/dados/data_sisPag.txt';
-		$handle = fopen($localizacao, 'w');
+		$handle = fopen(USERS_DATA_PATH, 'w');
 		for ( $i = 0; $i < count($usersData); $i++ ) {
 			$txt = $usersData[$i]['user'].";".$usersData[$i]['password'].";".$usersData[$i]['isAdmin']."\n";
 			fwrite($handle, $txt);
@@ -98,8 +100,7 @@ function KX_validateChangeUser($p_user, $p_password) {
 // Insere novo usuário no banco de dados
 
 	function KX_newUser($p_user, $p_password) {
-		$localizacao = '/home/mateusjales/dados/data_sisPag.txt';
-		$handle = fopen($localizacao, 'a');
+		$handle = fopen(USERS_DATA_PATH, 'a');
 		$txt = $p_user.";".$p_password.";0\n";
 		fwrite($handle, $txt);
 		fclose($handle);
@@ -108,8 +109,7 @@ function KX_validateChangeUser($p_user, $p_password) {
 // Verifica se o login é correto
 
 	function KX_ativaDadosLogin() {
-		$localizacao = '/home/mateusjales/dados/data_sisPag.txt';
-		$handle = fopen($localizacao, 'r');
+		$handle = fopen(USERS_DATA_PATH, 'r');
 		$id = 0;
 		$dados = array(array());
 		while(!feof($handle)) {
