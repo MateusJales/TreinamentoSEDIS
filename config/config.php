@@ -10,7 +10,7 @@ Versão 1.0
 
 	// Constante que recebe o ip da maquina do usuário
 
-	define('IP_MAQUINA', '10.4.5.13');
+	define('IP_MAQUINA', '10.4.43.215');
 	define('USERS_DATA_PATH', '/home/mateusjales/dados/data_sisPag.txt');
 
 ?>

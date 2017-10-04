@@ -19,13 +19,19 @@
 		?>
     <form action="../controller/controller_logout.php">
 
-			<input value="Logout" type="submit">
+	  <input value="Logout" type="submit">
 
     </form>
 
-		<form action="./changePassword.php" >
-			<input value="Alterar Senha" type="submit">
-		</form>
+	<form action="./changePassword.php" >
+	  <input value="Alterar Senha" type="submit">
+	</form>
+
+	<?php
+		if ( $_SESSION['_user']->photo != '0' ) {
+			echo "<img src=".$_SESSION['_user']->photo." width='100px' >" ;
+		}
+	?>
 
   </body>
 

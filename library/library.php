@@ -119,6 +119,7 @@ function KX_validateChangeUser($p_user, $p_password) {
 				$dados[$id]['user'] = $cadaDado[0];
 				$dados[$id]['password'] = trim($cadaDado[1]);
 				$dados[$id]['isAdmin'] = trim($cadaDado[2]);
+				$dados[$id]['photo'] = trim($cadaDado[3]);
 				$id ++;
 			}
 		}
@@ -131,7 +132,7 @@ function KX_validateChangeUser($p_user, $p_password) {
 		for ( $i = 0; $i < count($dadosLogin); $i++ ) {
 			if ( $dadosLogin[$i]['user'] == $p_user && $dadosLogin[$i]['password'] == $p_password ) {
 				session_start();
-				$_SESSION['_user'] = new User ($p_user, $dadosLogin[$i]['isAdmin']);
+				$_SESSION['_user'] = new User ($p_user, $dadosLogin[$i]['isAdmin'], $dadosLogin[$i]['photo']);
 				break;
 			}
 		}
