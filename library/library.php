@@ -25,7 +25,7 @@ Versão 1.0
 		}
 		$handle = fopen(USERS_DATA_PATH, 'w');
 		for ( $i = 0; $i < count($usersData); $i++ ) {
-			$txt = $usersData[$i]['user'].";".$usersData[$i]['password'].";".$usersData[$i]['isAdmin']."\n";
+			$txt = $usersData[$i]['user'].";".$usersData[$i]['password'].";".$usersData[$i]['isAdmin'].";0\n";
 			fwrite($handle, $txt);
 		}
 		fclose($handle);
@@ -73,7 +73,7 @@ function KX_validateChangeUser($p_user, $p_password) {
 		}
 		$handle = fopen(USERS_DATA_PATH, 'w');
 		for ( $i = 0; $i < count($usersData); $i++ ) {
-			$txt = $usersData[$i]['user'].";".$usersData[$i]['password'].";".$usersData[$i]['isAdmin']."\n";
+			$txt = $usersData[$i]['user'].";".$usersData[$i]['password'].";".$usersData[$i]['isAdmin'].";0\n";
 			fwrite($handle, $txt);
 		}
 		fclose($handle);
@@ -101,7 +101,7 @@ function KX_validateChangeUser($p_user, $p_password) {
 
 	function KX_newUser($p_user, $p_password) {
 		$handle = fopen(USERS_DATA_PATH, 'a');
-		$txt = $p_user.";".$p_password.";0\n";
+		$txt = $p_user.";".$p_password.";0;0\n";
 		fwrite($handle, $txt);
 		fclose($handle);
 	}

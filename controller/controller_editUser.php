@@ -26,6 +26,8 @@
     KX_changeUser($_dataToChange["_userToChange"], $_dataToChange["_user"], $_dataToChange["_password"], $_dataToChange["_isAdmin"]);
     KX_redirectPage('http://'.IP_MAQUINA.'/SisPag/view/manageUsersAdmin.php');
   } else {
-    KX_sendData($_userId, 'http://'.IP_MAQUINA.'/SisPag/view/editUserAdmin.php');
+    $_SESSION["_editingUser"] = array('_userId' => $_dataToChange["_user"],
+                                      '_password' => $_dataToChange["_password"]);
+    KX_redirectPage('http://'.IP_MAQUINA.'/SisPag/view/editUserAdmin.php');
   }
  ?>

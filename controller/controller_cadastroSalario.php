@@ -19,6 +19,9 @@ Versão 1.0
 	// Verificação de login
 	require_once('../session/session.php');
 
+	// Ativação de Classes
+	require_once('../model/Formulario.php');
+
 
 // Definição dos parâmetros de entrada
 
@@ -66,26 +69,12 @@ Versão 1.0
 
 	else
 	  {
-		$_salFamilia = KX_calculaSalFamilia($_numFilhos);
-		$_idade = KX_calculaIdade($_nascimento);
-		$_abono = KX_calculaAbono($_idade);
-		$_salBruto = KX_calculaSalBruto($_abono, $_salFamilia, $_salBase);
-		$_inss = KX_calculaInss($_salBase);
-		$_salLiquido = KX_calculaSalLiquido($_salBruto, $_inss);
+		$form = new Formulario($_cpf, $_funcionario, $_nascimento, $_salBase, $_numFilhos);
 	  }
 
 // Envia de dados para mensagem final
 
-	$_SESSION['dados'] = array( '_cpf' => $_cpf,
-			'_funcionario' => $_funcionario,
-			'_nascimento' => $_nascimento,
-			'_idade' => $_idade,
-			'_salBase' => $_salBase,
-			'_salFamilia' => $_salFamilia,
-			'_abono' => $_abono,
-			'_salBruto' => $_salBruto,
-			'_inss' => $_inss,
-			'_salLiquido' => $_salLiquido);
+	$_SESSION['dados'] = $form->returnData();
 
 	KX_redirectPage('http://'.IP_MAQUINA.'/SisPag/view/view.php');
 ?>
